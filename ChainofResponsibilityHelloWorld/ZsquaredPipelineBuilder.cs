@@ -12,22 +12,22 @@ namespace ChainofResponsibilityHelloWorld
 
         public ZsquaredPipelineBuilder Use(Func<ZsquaredDelegate, ZsquaredDelegate> middleware)
         {
-            components.Add(middleware);
+            components.Add(middleware); // 1, 2, 3
             return this;
         }
 
         public ZsquaredDelegate Build()
         {
-            ZsquaredDelegate app = context =>
+            ZsquaredDelegate zd = context =>
             {
                 Console.WriteLine("final step");
                 context.IsSuccess = false;
             };
-            foreach (var component in components.Reverse())
+            foreach (var component in components.Reverse()) // 3, 2, 1
             {
-                app = component(app);
+                zd = component(zd);
             }
-            return app;
+            return zd; // 1
         }
     }
 
@@ -66,7 +66,7 @@ namespace ChainofResponsibilityHelloWorld
                 ZsquaredDelegate myDelegate = new ZsquaredDelegate(context =>
                 {
                     Console.WriteLine("middleware 3 start");
-                    if (context.Name.Contains("ZZ")) next(context);
+                    if (context.Name.Equals("ZZ", StringComparison.InvariantCultureIgnoreCase)) next(context);
                     Console.WriteLine("middleware 3 end");
                 });
                 return myDelegate;
