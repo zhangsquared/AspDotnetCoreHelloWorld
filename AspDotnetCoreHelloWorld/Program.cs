@@ -42,12 +42,12 @@ namespace AspDotnetCoreHelloWorld
             })
             .ConfigureWebHostDefaults(webBuilder =>
             {
-                //webBuilder.UseStartup<Startup>();
-                ConfigKestrel(webBuilder);
+                webBuilder.UseStartup<Startup>();
+                //PlayWithConfigKestrel(webBuilder);
             });
 
 
-        private static void ConfigKestrel(IWebHostBuilder webBuilder)
+        private static void PlayWithConfigKestrel(IWebHostBuilder webBuilder)
         {
             webBuilder.UseKestrel(options => 
             {
