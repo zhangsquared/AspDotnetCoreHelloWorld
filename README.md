@@ -14,3 +14,7 @@ This is a project to reinvent the wheel in the key components of ASP .NET Core
 
 ## ChainofResponsibilityHelloWorld
 How to build middleware pipeline
+
+## CircularReference
+ChickenService and EggService have circular reference 
+
