@@ -18,3 +18,8 @@ How to build middleware pipeline
 ## CircularReference
 ChickenService and EggService have circular reference 
 
+## FailFast
+How to fast return false if any of parallel running tasks failed, and cancel the remaining parallel tasks?
+* Start(): wait every tasks finished and return a final result. not fail fast
+* Start2() and Start2Async(): fast fail, but cannot cancel the remaining tasks
+* Start3Async(): fast fail, and also cancel the remaining tasks (need to modify mock job function to pass in the cancellation token)
