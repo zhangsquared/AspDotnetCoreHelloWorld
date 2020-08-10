@@ -16,7 +16,7 @@ This is a project to reinvent the wheel in the key components of ASP .NET Core
 How to build middleware pipeline
 
 ## CircularReference
-ChickenService and EggService is using contructor dependency injection
+ChickenService and EggService is using constructor dependency injection
 This will cause throwing runtime error: circular reference.
 
 **Question**: How to create IoC container to enable other DI other than via constructor?
