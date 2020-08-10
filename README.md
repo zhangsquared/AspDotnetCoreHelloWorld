@@ -16,10 +16,14 @@ This is a project to reinvent the wheel in the key components of ASP .NET Core
 How to build middleware pipeline
 
 ## CircularReference
-ChickenService and EggService have circular reference 
+ChickenService and EggService is using contructor dependency injection
+This will cause throwing runtime error: circular reference.
+Question: How to create IoC container to enable other DI other than via constructor
 
 ## FailFast
 How to fast return false if any of parallel running tasks failed, and cancel the remaining parallel tasks?
 * Start(): wait every tasks finished and return a final result. not fail fast
 * Start2() and Start2Async(): fast fail, but cannot cancel the remaining tasks
 * Start3Async(): fast fail, and also cancel the remaining tasks (need to modify mock job function to pass in the cancellation token)
+Question: how to cancel a non-cancellable task?
+[Cancel asynchronous operations in C#](https://johnthiriet.com/cancel-asynchronous-operation-in-csharp/) 
