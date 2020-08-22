@@ -42,4 +42,14 @@ namespace MyIoC
 
         TInterface Resolve<TInterface>(string shortName = null);
     }
+
+    public interface IMyUpdatedContainer
+    {
+        void AddTransient<TInterface, TImplementation>(
+            string shortName = null, 
+            object[] constParams = null
+            ) where TImplementation : TInterface;
+
+        TInterface Resolve<TInterface>(string shortName = null);
+    }
 }
