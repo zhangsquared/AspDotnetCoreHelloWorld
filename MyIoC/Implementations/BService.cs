@@ -8,19 +8,20 @@ namespace MyIoC.Implementations
 {
     public class BService : IBService
     {
-        private readonly IDALService dal;
-        private readonly IAService a;
+        public IAService A { get; }
+
+        public IDALService DAL { get; }
 
         [MyChosenCtor]
         public BService(IDALService dalService)
         {
-            dal = dalService;
+            DAL = dalService;
         }
 
         public BService(IDALService dalService, IAService aService)
         {
-            dal = dalService;
-            a = aService;
+            DAL = dalService;
+            A = aService;
         }
 
     }

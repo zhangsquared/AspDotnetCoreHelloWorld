@@ -8,7 +8,7 @@ namespace MyIoC.Implementations
 {
     public class IntService : IIntService
     {
-        private readonly ICService c;
+        private readonly IDService d;
 
         public int GetI { get; }
         public int GetJ { get; }
@@ -19,10 +19,10 @@ namespace MyIoC.Implementations
             GetI = i;
         }
 
-        public IntService([MyConstParam] int i, ICService cService, [MyConstParam]int j)
+        public IntService([MyConstParam] int i, IDService dService, [MyConstParam]int j)
         {
             GetI = i;
-            c = cService;
+            d = dService;
             GetJ = j;
         }
     }

@@ -4,10 +4,7 @@ using System.Text;
 
 namespace MyIoC.Interfaces
 {
-    public interface IBService
+    public interface IEService
     {
-        IDALService DAL { get; }
-
-        IAService A { get; }
     }
 }

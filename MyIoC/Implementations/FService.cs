@@ -5,13 +5,13 @@ using System.Text;
 
 namespace MyIoC.Implementations
 {
-    public class AService : IAService
+    public class FService : IFService
     {
-        public IDALService DAL { get; }
+        public IEService E { get; }
 
-        public AService(IDALService dalService)
+        public FService(IEService e)
         {
-            DAL = dalService;
+            E = e;
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace MyIoC
 {
-    public class MyContainer : IMyContainer
+    public class MyContainerV1 : IMyContainerV1
     {
         // key: the full name of the interface; value: type of of implementation
         private readonly Dictionary<string, Type> map = new Dictionary<string, Type>();
@@ -20,7 +20,7 @@ namespace MyIoC
             object[] constParams = null
             ) where TImplementation : TInterface
         {
-            string key = shortName ?? typeof(TInterface).FullName;
+            string key = GetKey(typeof(TInterface).FullName, shortName);
             map.Add(key, typeof(TImplementation));
 
             // enable constant constructor
@@ -34,10 +34,10 @@ namespace MyIoC
             TInterface instance = (TInterface)o;
             return instance;
         }
-
+        
         private object ResolveObject(Type interfaceType, string shortName)
         {
-            string key = shortName ?? interfaceType.FullName;
+            string key = GetKey(interfaceType.FullName, shortName);
             if (!map.ContainsKey(key)) throw new Exception();
             Type implementationType = map[key];
 
@@ -48,7 +48,7 @@ namespace MyIoC
             var constParams = paramMap.ContainsKey(key) ? paramMap[key] : null;
             object[] parameters = InitParameters(ctor.GetParameters(), constParams); // recursive inside
             #endregion
-            object o = Activator.CreateInstance(implementationType, parameters.ToArray());
+            object instance = Activator.CreateInstance(implementationType, parameters.ToArray());
 
             #region DI by property
             IEnumerable<PropertyInfo> properties = implementationType.GetProperties();
@@ -57,7 +57,7 @@ namespace MyIoC
                 if (!info.IsDefined(typeof(MyPropertyDIAttribute))) continue;
                 Type propertyType = info.PropertyType;
                 object propertyObject = ResolveObject(propertyType, GetShortName(info)); // recursive
-                info.SetValue(o, propertyObject);
+                info.SetValue(instance, propertyObject);
             }
             #endregion
 
@@ -67,11 +67,11 @@ namespace MyIoC
             {
                 if (!info.IsDefined(typeof(MyMethodDIAttribute))) continue;
                 object[] methodParas = InitParameters(info.GetParameters());
-                info.Invoke(o, methodParas);
+                info.Invoke(instance, methodParas);
             }
             #endregion
 
-            return o;
+            return instance;
         }
 
         private ConstructorInfo GetCtorWithMostParameters(ConstructorInfo[] constructorInfos)
@@ -124,32 +124,12 @@ namespace MyIoC
             return info.GetCustomAttribute<MyShortnameAttribute>().ShortName;
         }
 
-        public TInterface Resolve2Layer<TInterface>()
+        private string GetKey(string fullName, string shortName)
         {
-            string key = typeof(TInterface).FullName;
-            if (!map.ContainsKey(key)) throw new Exception();
-            Type type = map[key];
-
-            #region prepare constructor parameter
-            List<object> parameters = new List<object>();
-
-            ConstructorInfo ctor = type.GetConstructors()[0]; // get the 1st one for now
-
-            foreach(ParameterInfo parameter in ctor.GetParameters())
-            {
-                Type paraType = parameter.ParameterType; // don't use typeof() here, it will return ParameterInfo
-                string paraKey = paraType.FullName;
-                if (!map.ContainsKey(paraKey)) throw new Exception();
-                Type paraTargetType = map[paraKey];
-
-                object pObject = Activator.CreateInstance(paraTargetType);
-                parameters.Add(pObject);
-            }
-            #endregion
-
-            object o = Activator.CreateInstance(type, parameters.ToArray());
-            TInterface t = (TInterface)o;
-            return t;
+            if (string.IsNullOrEmpty(shortName)) return fullName;
+            return $"{fullName}_{shortName}";
         }
+
+        
     }
 }

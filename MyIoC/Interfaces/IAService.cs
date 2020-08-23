@@ -6,5 +6,6 @@ namespace MyIoC.Interfaces
 {
     public interface IAService
     {
+        IDALService DAL { get; }
     }
 }

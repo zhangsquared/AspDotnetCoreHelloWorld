@@ -8,6 +8,7 @@ namespace MyIoC
     {
         Transient,
         Scope,
-        Singleton
+        Singleton,
+        PerThread
     }
 }

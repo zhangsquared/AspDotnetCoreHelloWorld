@@ -24,18 +24,11 @@ namespace MyIoC
     /// in Register stop, store the constant parameter in this dictionary (constParams) e.g. IntService
     /// in Resolve, pass const parms into constructor
     /// 
-    /// 6. life/ scope
-    /// AddTransient()
-    /// AddSingleton()
-    /// AddScoped()
-    /// 
-    /// 7. AOP
-    /// 
     /// 
     /// IoC is a design pattern
     /// DI is an implementation of IoC
     /// </summary>
-    public interface IMyContainer
+    public interface IMyContainerV1
     {
         void Register<TInterface, TImplementation>(string shortName = null, object[] constParams = null) 
             where TImplementation : TInterface;
@@ -43,13 +36,4 @@ namespace MyIoC
         TInterface Resolve<TInterface>(string shortName = null);
     }
 
-    public interface IMyUpdatedContainer
-    {
-        void AddTransient<TInterface, TImplementation>(
-            string shortName = null, 
-            object[] constParams = null
-            ) where TImplementation : TInterface;
-
-        TInterface Resolve<TInterface>(string shortName = null);
-    }
 }
