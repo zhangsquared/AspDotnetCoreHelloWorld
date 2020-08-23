@@ -136,7 +136,7 @@ namespace MyIoC
 
                 case LifetimeEnum.PerThread:
                     object newPerThreadObj = InitObject(key, implementationType);
-                    string modifiedKey = $"{key}-{Thread.CurrentThread.ManagedThreadId}";
+                    string modifiedKey = $"{key}-{Thread.CurrentThread.ManagedThreadId}"; // this is not trictly correct. Thread can be reused.
                     //CallContext.GetData(modifiedKey)
                     object perThreadObj = perThreadObjMap.GetOrAdd(modifiedKey, newPerThreadObj);
                     return perThreadObj;
