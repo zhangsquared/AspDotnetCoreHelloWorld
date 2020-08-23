@@ -1,4 +1,5 @@
-﻿using MyIoC.Attributes;
+﻿using MyIoC.AOPs;
+using MyIoC.Attributes;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 
-namespace MyIoC
+namespace MyIoC.IoCs
 {
     public class MyContainerV2 : IMyContainerV2
     {
@@ -92,11 +93,15 @@ namespace MyIoC
             if (constParams != null) paramMap[key] = constParams;
         }
 
-        public TInterface Resolve<TInterface>(string shortName = null)
+        public TInterface Resolve<TInterface>(string shortName = null) 
+            where TInterface : class
         {
             Type interfaceType = typeof(TInterface);
             object o = ResolveObject(interfaceType, shortName);
-            TInterface instance = (TInterface)o;
+            TInterface instance = o as TInterface;
+            #region AOP
+            instance = instance.AOP();
+            #endregion
             return instance;
         }
 
@@ -220,14 +225,12 @@ namespace MyIoC
 
         private string GetShortName(ParameterInfo info)
         {
-            if (!info.IsDefined(typeof(MyShortnameAttribute))) return null;
-            return info.GetCustomAttribute<MyShortnameAttribute>().ShortName;
+            return info.GetCustomAttribute<MyShortnameAttribute>()?.ShortName ?? null;
         }
 
         private string GetShortName(PropertyInfo info)
         {
-            if (!info.IsDefined(typeof(MyShortnameAttribute))) return null;
-            return info.GetCustomAttribute<MyShortnameAttribute>().ShortName;
+            return info.GetCustomAttribute<MyShortnameAttribute>()?.ShortName ?? null;
         }
 
         private string GetKey(string fullName, string shortName)

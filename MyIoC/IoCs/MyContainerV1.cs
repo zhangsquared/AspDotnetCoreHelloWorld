@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace MyIoC
+namespace MyIoC.IoCs
 {
     public class MyContainerV1 : IMyContainerV1
     {
@@ -114,14 +114,12 @@ namespace MyIoC
 
         private string GetShortName(ParameterInfo info)
         {
-            if (!info.IsDefined(typeof(MyShortnameAttribute))) return null;
-            return info.GetCustomAttribute<MyShortnameAttribute>().ShortName;
+            return info.GetCustomAttribute<MyShortnameAttribute>()?.ShortName ?? null;
         }
 
         private string GetShortName(PropertyInfo info)
         {
-            if (!info.IsDefined(typeof(MyShortnameAttribute))) return null;
-            return info.GetCustomAttribute<MyShortnameAttribute>().ShortName;
+            return info.GetCustomAttribute<MyShortnameAttribute>().ShortName ?? null;
         }
 
         private string GetKey(string fullName, string shortName)

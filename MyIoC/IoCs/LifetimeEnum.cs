@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MyIoC
+namespace MyIoC.IoCs
 {
     public enum LifetimeEnum
     {

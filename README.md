@@ -53,3 +53,5 @@ This will cause throwing runtime error: circular reference.
 >`AddScoped()` --- basically singlton per request, singleton in child container
 
 >`AddPerThread()` --- (This is not well implemented.)
+
+7. IoC + AOP

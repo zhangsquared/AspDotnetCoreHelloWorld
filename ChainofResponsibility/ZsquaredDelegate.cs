@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChainofResponsibilityHelloWorld
+namespace ChainofResponsibility
 {
     public delegate void ZsquaredDelegate(ZsquaredContext z);
 

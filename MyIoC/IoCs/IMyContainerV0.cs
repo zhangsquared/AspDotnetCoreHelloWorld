@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MyIoC
+namespace MyIoC.IoCs
 {
     /// <summary>
     /// 0. create instance, with 1 layer of constuctor DI

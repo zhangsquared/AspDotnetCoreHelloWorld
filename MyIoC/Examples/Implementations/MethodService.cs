@@ -9,7 +9,12 @@ namespace MyIoC.Implementations
     {
         public void Show()
         {
-            Console.WriteLine("MethodService Show");
+            Console.WriteLine("[x] MethodService Show");
+        }
+
+        public void ShowWithoutLog()
+        {
+            Console.WriteLine("[x] MethodService ShowWithoutLog");
         }
     }
 }

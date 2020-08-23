@@ -9,7 +9,7 @@ namespace MyIoC.Implementations
     {
         public void Show()
         {
-            Console.WriteLine("Property Show");
+            Console.WriteLine("[x] Property Show");
         }
     }
 }

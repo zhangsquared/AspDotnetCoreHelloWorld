@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 
-namespace MyIoC
+namespace MyIoC.IoCs
 {
     /// <summary>
     /// Provides a way to set contextual data that flows with the call and 

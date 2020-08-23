@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MyIoC
+namespace MyIoC.IoCs
 {
     /// <summary>
     /// 6. life cycle support
@@ -16,8 +16,11 @@ namespace MyIoC
     /// AddScoped() --- basically singlton per request, singleton in child container
     /// AddPerThread()
     /// 
-    /// 7. AOP
+    /// 7. IoC + AOP
     /// 
+    /// IOCContainerAOPExtension
+    /// IOCInterceptor
+    /// AbstractInterceptorAttribute
     /// </summary>
     public interface IMyContainerV2
     {
@@ -43,6 +46,7 @@ namespace MyIoC
             object[] constParams = null
             ) where TImplementation : TInterface;
 
-        TInterface Resolve<TInterface>(string shortName = null);
+        TInterface Resolve<TInterface>(string shortName = null)
+            where TInterface : class;
     }
 }

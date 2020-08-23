@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ChainofResponsibilityHelloWorld
+namespace ChainofResponsibility
 {
     public class ZsquaredContext
     {

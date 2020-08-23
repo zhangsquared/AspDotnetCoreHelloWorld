@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ChainofResponsibilityHelloWorld
+namespace ChainofResponsibility
 {
     class Program
     {

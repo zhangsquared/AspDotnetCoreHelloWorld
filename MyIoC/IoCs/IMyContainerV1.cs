@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MyIoC
+namespace MyIoC.IoCs
 {
     /// <summary>
     /// 1. multiple paramters in constructor
